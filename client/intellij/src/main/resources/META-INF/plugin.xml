@@ -6,7 +6,6 @@
     <description>Advanced development tools for Workflow Description Language</description>
 
     <depends>com.intellij.modules.platform</depends>
-    <depends>org.jetbrains.plugins.textmate</depends>
 
     <application-components>
         <component>
@@ -19,11 +18,12 @@
                 implementation="org.broadinstitute.wdl.devtools.PluginPreloadingActivity"
                 id="io.ballerina.plugins.idea.preloading.BallerinaPreloadingActivity"
         />
-        <localInspection
-                displayName="LSP"
-                shortName="LSP"
-                enabledByDefault="true"
-                implementationClass="org.wso2.lsp4intellij.contributors.inspection.DummyLSPInspection"
+        <fileTypeFactory
+                implementation="org.broadinstitute.wdl.devtools.language.WDLFileTypeFactory"
+        />
+        <externalAnnotator
+                implementationClass="org.wso2.lsp4intellij.contributors.annotator.LSPAnnotator"
+                language="WDL"
         />
     </extensions>
 

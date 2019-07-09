@@ -8,15 +8,10 @@ import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.extensions.PluginId;
 import com.intellij.openapi.progress.ProgressIndicator;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.plugins.textmate.TextMateService;
-import org.jetbrains.plugins.textmate.configuration.BundleConfigBean;
-import org.jetbrains.plugins.textmate.configuration.TextMateSettings;
 import org.wso2.lsp4intellij.IntellijLanguageClient;
 import org.wso2.lsp4intellij.client.languageserver.serverdefinition.ExeLanguageServerDefinition;
 
-import java.io.File;
 import java.io.IOException;
-import java.util.Collections;
 import java.util.Scanner;
 
 public final class PluginPreloadingActivity extends PreloadingActivity {
@@ -36,23 +31,7 @@ public final class PluginPreloadingActivity extends PreloadingActivity {
     public void preload(@NotNull ProgressIndicator indicator) {
         final IdeaPluginDescriptor plugin = PluginManager.getPlugin(PluginId.getId(PLUGIN_ID));
 
-        setupSyntaxHighlighting(plugin);
-
         setupLanguageServer(plugin);
-    }
-
-    private void setupSyntaxHighlighting(final IdeaPluginDescriptor plugin) {
-        TextMateSettings.TextMateSettingsState state = TextMateSettings.getInstance().getState();
-        if (state == null) {
-            state = new TextMateSettings.TextMateSettingsState();
-        }
-
-        final String bundlePath = new File(plugin.getPath(), "WDL.tmbundle").getAbsolutePath();
-        final BundleConfigBean bundle = new BundleConfigBean(BUNDLE, bundlePath, true);
-
-        state.setBundles(Collections.singleton(bundle));
-        TextMateSettings.getInstance().loadState(state);
-        TextMateService.getInstance().registerEnabledBundles(false);
     }
 
     private void setupLanguageServer(final IdeaPluginDescriptor plugin) {
