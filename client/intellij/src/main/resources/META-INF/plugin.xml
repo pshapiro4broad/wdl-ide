@@ -6,6 +6,7 @@
     <description>Advanced development tools for Workflow Description Language</description>
 
     <depends>com.intellij.modules.platform</depends>
+    <depends>org.jetbrains.plugins.textmate</depends>
 
     <application-components>
         <component>
