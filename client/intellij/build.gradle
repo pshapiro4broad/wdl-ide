@@ -39,7 +39,6 @@ dependencies {
     implementation 'org.apache.commons:commons-lang3:3.9'
 }
 
-
 prepareSandbox.doLast {
     def tmBundleDir = "${intellij.sandboxDirectory}/plugins/${intellij.pluginName}/WDL.tmbundle"
     download {

@@ -61,12 +61,14 @@ public final class PluginPreloadingActivity extends PreloadingActivity {
         final String version = plugin.getVersion();
         final String pythonPath = PropertiesComponent.getInstance()
                 .getValue(PYTHON_PATH_PROPERTY, PYTHON_PATH_DEFAULT);
+
         if (!isDebug &&
             version.matches(RELEASE_REGEX) &&
             !runProcess(pythonPath, "-m", "pip", "install", "--user", "wdl-lsp==" + version)
         ) {
             return;
         }
+
         IntellijLanguageClient.addServerDefinition(
                 new ExeLanguageServerDefinition(EXTENSION, pythonPath, new String[]{
                         "-m", SERVER_MODULE, "--log", isDebug ? "DEBUG" : "WARNING",
